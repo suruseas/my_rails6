@@ -35,7 +35,10 @@ services:
     ports:
       - 3000:3000
     environment:
-      - EDITOR=vi
+      - MYSQL_USERNAME=root
+      - MYSQL_PASSWORD=password
+      - MYSQL_HOST=db
+      - EDITOR=vim
     depends_on:
       - db
 
