@@ -37,3 +37,7 @@ COPY Gemfile Gemfile.lock /app/
 WORKDIR /app
 
 RUN bundle
+
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT [ "entrypoint.sh" ]
