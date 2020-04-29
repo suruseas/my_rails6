@@ -1,0 +1,46 @@
+version: '3.4'
+
+services:
+  db:
+    image: mysql:8.0.16
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+    volumes:
+      - ./tmp/db:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  app: &app
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        RUBY_VERSION: '2.6.5'
+        BUNDLER_VERSION: '2.1.2'
+    tmpfs:
+      - /tmp
+
+  web:
+    <<: *app
+    # command: bundle exec rails s -b 0.0.0.0
+    command: /bin/bash
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/app:cached
+      - node_modules:/app/node_modules
+      - packs:/app/public/packs
+    ports:
+      - 3000:3000
+    environment:
+      - EDITOR=vi
+    depends_on:
+      - db
+
+volumes:
+  bundle:
+  node_modules:
+  packs:
+  
