@@ -1,19 +1,21 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @idea.name %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @idea.description %>
-</p>
-
-<p>
-  <strong>Picture:</strong>
-  <%= @idea.picture %>
-</p>
-
-<%= link_to 'Edit', edit_idea_path(@idea) %> |
-<%= link_to 'Back', ideas_path %>
+<div class="row">
+  <div class="col-md-9">
+    <p>
+      <strong>Name: </strong>
+      <%= @idea.name %>
+    </p>
+    <p>
+      <strong>Description: </strong>
+      <%= @idea.description %>
+    </p>
+    <p>
+      <%= image_tag(@idea.picture_url, width: '100%') if @idea.picture.present? %>
+    </p>
+    <p>
+      <%= link_to 'Edit', edit_idea_path(@idea) %> |
+      <%= link_to 'Back', ideas_path %>
+    </p>
+  </div>
+</div>
